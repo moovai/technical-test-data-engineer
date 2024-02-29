@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "moovai-de-technical-test"
+version = "0.1.0"
+description = ""
+authors = ["Noe Sautel <noe.sautel@moov.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.109.2"
+uvicorn = "^0.27.1"
+aiosqlite = "^0.20.0"
+alchemical = "^1.0.1"
+fastapi-pagination = "^0.12.17"
+faker = "^23.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
