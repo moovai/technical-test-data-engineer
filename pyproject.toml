@@ -1,18 +1,15 @@
 [tool.poetry]
-name = "moovai-de-technical-test"
+name = "technical-test-data-engineer"
 version = "0.1.0"
 description = ""
-authors = ["Noe Sautel <noe.sautel@moov.ai>"]
+authors = ["Noé Sautel"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
-fastapi = "^0.109.2"
-uvicorn = "^0.27.1"
-aiosqlite = "^0.20.0"
-alchemical = "^1.0.1"
-fastapi-pagination = "^0.12.17"
-faker = "^23.2.1"
+python = "3.11.9"
+faker = "^24.2.0"
+uvicorn = "^0.28.0"
+apache-airflow = "^2.8.3"
 
 
 [build-system]
