@@ -104,12 +104,12 @@ class ListenHistoryOut(BaseModel):
 
     @classmethod
     def generate_fake(cls) -> "ListenHistoryOut":
+        created_at = fake.date_time_between(start_date="-2y", end_date="now")
+        updated_at = fake.date_time_between(start_date=created_at, end_date="now")
+
         return cls(
             user_id=None,
             items=None,
-            created_at=fake.date_time_between(start_date="-2y", end_date="now"),
-            updated_at=fake.date_time_between(start_date="-1y", end_date="now"),
+            created_at=created_at,
+            updated_at=updated_at,
         )
-
-
-# TODO: updated_at > created_at
