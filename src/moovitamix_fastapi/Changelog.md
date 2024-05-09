@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Nothing yet !
+
+## [0.1.0] - 2024-05-09
+
 ### Added
 
-- v1.1 FastAPI
-- v1.1 Update documentation
+- Everything !
+
+[0.1.0]: https://github.com/moovai/technical-test-data-engineer/releases/tag/v0.1.0

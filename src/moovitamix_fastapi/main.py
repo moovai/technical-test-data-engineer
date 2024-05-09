@@ -1,5 +1,6 @@
 from classes_out import ListenHistoryOut, TracksOut, UsersOut
 from fastapi import FastAPI, Query
+from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi_pagination import Page, add_pagination, paginate
 from generate_fake_data import FakeDataGenerator
 
@@ -11,7 +12,18 @@ app = FastAPI(
     title="MooVitamix",
     description="A music recommendation system.",
     version="1.1",
+    docs_url=None,
 )
+
+
+@app.get("/docs", include_in_schema=False)
+async def overridden_swagger():
+    return get_swagger_ui_html(
+        openapi_url= app.openapi_url,
+        title="MooVitamix",
+        swagger_favicon_url="https://moov.ai/wp-content/uploads/2019/07/cropped-favicon-1-32x32.png",
+    )
+
 
 data_range_observations = 1000
 generator = FakeDataGenerator(data_range_observations)
