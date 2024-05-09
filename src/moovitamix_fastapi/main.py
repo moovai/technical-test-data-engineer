@@ -1,42 +1,33 @@
-import random
-
+from classes_out import ListenHistoryOut, TracksOut, UsersOut
 from fastapi import FastAPI, Query
+from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi_pagination import Page, add_pagination, paginate
-
-from moovitamix_fastapi.classes_out import ListenHistoryOut, TracksOut, UsersOut
+from generate_fake_data import FakeDataGenerator
 
 Page = Page.with_custom_options(
     size=Query(100, ge=1, le=100),
 )
 
 app = FastAPI(
-    title="MooVitamix",  # swagger_ui_parameters={"defaultModelsExpandDepth": -1}
+    title="MooVitamix",
+    description="A music recommendation system.",
+    version="1.1",
+    docs_url=None,
 )
 
-data_range_observations = 1000
 
-tracks = [TracksOut.generate_fake() for _ in range(data_range_observations)]
-users = [UsersOut.generate_fake() for _ in range(data_range_observations)]
-listen_history = [
-    ListenHistoryOut.generate_fake() for _ in range(data_range_observations)
-]
-
-print("tracks:", tracks)
-print("users:", users)
-print("listen_history:", listen_history)
-
-for index, item in enumerate(listen_history):
-    random_tracks = random.sample(
-        [track.id for track in tracks], 5
-    )  # Select 5 random track IDs
-    listen_history[index] = ListenHistoryOut(
-        user_id=users[index].id,
-        items=random_tracks,
-        created_at=item.created_at,
-        updated_at=item.updated_at,
+@app.get("/docs", include_in_schema=False)
+async def overridden_swagger():
+    return get_swagger_ui_html(
+        openapi_url= app.openapi_url,
+        title="MooVitamix",
+        swagger_favicon_url="https://moov.ai/wp-content/uploads/2019/07/cropped-favicon-1-32x32.png",
     )
 
-print("listen_history updated:", listen_history)
+
+data_range_observations = 1000
+generator = FakeDataGenerator(data_range_observations)
+tracks, users, listen_history = generator.generate_fake_data()
 
 
 @app.get("/tracks", tags=["HTTP methods"])
