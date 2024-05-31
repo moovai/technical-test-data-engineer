@@ -52,6 +52,7 @@ Nous développons une application similaire à Spotify avec notre client. Notre 
 - Nous vous encourageons à évaluer le degré de normalisation requis pour votre schéma et à déterminer la pertinence de l'utilisation de clés étrangères pour la jointure des tables.
 - Il est impératif que votre code soit exécutable.
 - Veuillez mettre en place la gestion des erreurs et test approprié à votre solution.
+- Vous avez la possibilité d'enregistrer les données localement; une base de données n'est pas nécessaire pour ce test.
 
 ## FAQ
 
@@ -60,4 +61,4 @@ Nous développons une application similaire à Spotify avec notre client. Notre 
 [FastAPI](https://fastapi.tiangolo.com/) est un framework web Python moderne et performant pour la création rapide d'APIs RESTful, offrant une syntaxe intuitive et une documentation interactive automatique. Ce framework est utilisé pour exécuter localement une application.
 À la racine du projet, vous pouvez exécuter l'instruction `make start`.
 
-À défaut, vous pouvez vous rendre au niveau de `src/moovitamix_fastapi`, puis exécuter dans votre terminal l'instruction suivante `python3 -m uvicorn main:app --reload`. Vous retrouverz ensuite l'URL pour accéder à l'application en local. Le chemin /docs doit être ajouté pour accéder à la page de documentation: <http://127.0.0.1:8000/docs>.
+À défaut, vous pouvez vous rendre au niveau de `src/moovitamix_fastapi`, puis exécuter dans votre terminal l'instruction suivante `python -m uvicorn main:app --reload`. Vous retrouverz ensuite l'URL pour accéder à l'application en local. Le chemin /docs doit être ajouté pour accéder à la page de documentation: <http://127.0.0.1:8000/docs>.

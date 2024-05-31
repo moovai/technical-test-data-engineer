@@ -1,3 +1,8 @@
+"""
+The following script is reserved for the core functionality of the technical
+test and must not be modified.
+"""
+
 import datetime
 import random
 from typing import List, Optional
