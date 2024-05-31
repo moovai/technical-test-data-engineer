@@ -2,3 +2,4 @@ faker
 fastapi
 uvicorn
 fastapi_pagination
+pytest
