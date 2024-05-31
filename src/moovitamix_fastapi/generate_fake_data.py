@@ -1,3 +1,8 @@
+"""
+The following script is reserved for the core functionality of the technical
+test and must not be modified.
+"""
+
 import random
 
 from classes_out import ListenHistoryOut, TracksOut, UsersOut
@@ -8,7 +13,6 @@ class FakeDataGenerator:
     Generate fake data for the application.
 
     This class provides methods to generate fake data for tracks, users, and listen history.
-    The generated data can be used for testing or populating a database.
 
     Args:
         data_range_observations (int): The number of observations to generate for each data type.

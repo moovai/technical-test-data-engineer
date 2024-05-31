@@ -26,10 +26,12 @@ Le test technique évalue des aspects clés de l'ingénierie de données chez Mo
 
 Nous développons une application similaire à Spotify avec notre client. Notre objectif est de personnaliser les listes de lecture pour chaque utilisateur en se basant sur leurs écoutes passées. Nous avons créé un modèle de recommandation et utilisé des données extraites manuellement pour son prototypage. Pour la prochaine phase, nous automatiserons l'ingestion de données à partir de l'API de l'application, comprenant trois endpoints: les chansons disponibles, les utilisateurs et leur historique d'écoute. Un flux de données quotidien sera mis en place pour récupérer automatiquement ces données et les stocker dans une base dédiée au système de recommandation.
 
+**Important:** Limiter votre travail de programmation uniquement aux **étapes 1 à 3** incluses.
+
 1. Un fichier `requirements.txt` liste les librairies à utiliser pour l'étape 2. Créer un environnement virtuel avec l'outil de votre choix et activez-le.
 
 2. Élaborer un flux de données, en **python**, conçu pour récupérer quotidiennement les données de l'API.
-*Pour lancer le serveur, exécuter la commande `make start` dans votre terminal à la racine du projet.*
+*Pour lancer le serveur, déplacez-vous dans le dossier `src/moovitamix_fastapi` puis exécuter la commande `python -m uvicorn main:app`.*
 
 3. Mettez en place quelques tests unitaires sur les composants de votre flux de données.
 *Choisissez judicieusement des tests unitaires essentiels pour votre flux de données, sans exagérer leur nombre.*
@@ -47,17 +49,36 @@ Nous développons une application similaire à Spotify avec notre client. Notre 
 ### Trucs et astuces
 
 - Nous estimons la durée de ce test entre 3 et 5 heures suivant votre appétence technique.
-- Limiter votre travail de programmation uniquement les **étapes 1 à 3** incluses.
+- Le projet a été testé avec python "^3.9,<3.13", nous vous recommandoncs une version comprise dans cette plage.
 - Nous ne privilégions aucune approche spécifique pour vos travaux. Notre intérêt se porte sur les choix que vous effectuez, leur justification, ainsi que sur votre méthodologie de développement.
 - Nous vous encourageons à évaluer le degré de normalisation requis pour votre schéma et à déterminer la pertinence de l'utilisation de clés étrangères pour la jointure des tables.
 - Il est impératif que votre code soit exécutable.
 - Veuillez mettre en place la gestion des erreurs et test approprié à votre solution.
+- Vous avez la possibilité d'enregistrer les données localement; une base de données n'est pas nécessaire pour ce test.
 
 ## FAQ
 
 ### Comment accéder aux données de l'API?
 
 [FastAPI](https://fastapi.tiangolo.com/) est un framework web Python moderne et performant pour la création rapide d'APIs RESTful, offrant une syntaxe intuitive et une documentation interactive automatique. Ce framework est utilisé pour exécuter localement une application.
-À la racine du projet, vous pouvez exécuter l'instruction `make start`.
 
-À défaut, vous pouvez vous rendre au niveau de `src/moovitamix_fastapi`, puis exécuter dans votre terminal l'instruction suivante `python3 -m uvicorn main:app --reload`. Vous retrouverz ensuite l'URL pour accéder à l'application en local. Le chemin /docs doit être ajouté pour accéder à la page de documentation: <http://127.0.0.1:8000/docs>.
+Placez vous dans le dossier `src/moovitamix_fastapi`, puis exécuter dans votre terminal l'instruction suivante `python -m uvicorn main:app --reload`. Vous retrouverz ensuite l'URL pour accéder à l'application en local. L'application vous redirige automatiquement vers le chemin /docs, si ce n'est pas le cas, rendez-vous directement à: <http://127.0.0.1:8000/docs>.
+
+### Comment rouler les tests ?
+
+[PyTest](https://docs.pytest.org/en/8.2.x/) est un framework de test pour Python. Il permet de créer des tests unitaires, d'intégration et de fonctionnalité de manière simple et efficace. Pytest facilite l'écriture des tests en utilisant une syntaxe claire et concise.
+
+Pour exécuter les tests, diriger vous à la racine du projet et exécuter la commande `pytest`.
+Le résultat devrait ressemblait à ceci:
+
+```bash
+=================================================================================== test session starts ===================================================================================
+platform darwin -- Python 3.9.19, pytest-8.2.1, pluggy-1.5.0
+rootdir: /Users/noesautel/Git/technical-test-data-engineer
+plugins: Faker-25.3.0, anyio-4.4.0
+collected 3 items                                                                                                                                                                         
+
+test/test_classes_out.py ...                                                                                                                                                        [100%]
+
+==================================================================================== 3 passed in 0.12s ====================================================================================
+```

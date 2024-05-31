@@ -1,3 +1,8 @@
+"""
+The following script is reserved for the core functionality of the technical
+test and must not be modified.
+"""
+
 import datetime
 import random
 from typing import List, Optional
@@ -8,8 +13,8 @@ from pydantic import BaseModel, Field
 fake = Faker()
 
 
-def generate_random_gender():
-    genders = [
+def gender_list():
+    return [
         "Male",
         "Female",
         "Non-binary",
@@ -20,11 +25,13 @@ def generate_random_gender():
         "Gender questioning",
         "Gender nonconforming",
     ]
-    return random.choice(genders)
+
+def generate_random_gender():
+    return random.choice(gender_list())
 
 
-def generate_random_genre():
-    genres = [
+def genre_list():
+    return [
         "Rock",
         "Pop",
         "Hip Hop",
@@ -43,7 +50,9 @@ def generate_random_genre():
         "Alternative",
         "Techno",
     ]
-    return random.choice(genres)
+
+def generate_random_genre():
+    return random.choice(genre_list())
 
 
 class TracksOut(BaseModel):
