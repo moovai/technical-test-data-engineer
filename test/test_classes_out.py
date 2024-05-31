@@ -1,6 +1,5 @@
-import pytest
 import datetime
-from src.moovitamix_fastapi.classes_out import TracksOut, UsersOut, ListenHistoryOut
+from src.moovitamix_fastapi.classes_out import TracksOut, UsersOut, ListenHistoryOut, gender_list, genre_list
 
 # Testing TracksOut
 def test_tracks_out_generate_fake():
@@ -22,8 +21,8 @@ def test_users_out_generate_fake():
     assert isinstance(user.first_name, str)
     assert isinstance(user.last_name, str)
     assert isinstance(user.email, str)
-    assert user.gender in ["Male", "Female", "Non-binary", "Genderqueer", "Genderfluid", "Agender", "Bigender", "Gender questioning", "Gender nonconforming"]
-    assert user.favorite_genres in ["Rock", "Pop", "Hip Hop", "Jazz", "Electronic", "Classical", "Country", "Blues", "R&B", "Reggae", "Folk", "Metal", "Punk", "Funk", "Indie", "Alternative", "Techno"]
+    assert user.gender in gender_list()
+    assert user.favorite_genres in genre_list()
     assert isinstance(user.created_at, datetime.datetime)
     assert isinstance(user.updated_at, datetime.datetime)
 
