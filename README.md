@@ -2,7 +2,7 @@
 
 Ce test est élaboré pour mettre en lumière votre expertise dans le domaine de l'ingénierie des données à travers l'utilisation du langage de programmation Python. Il vise également à évaluer votre capacité à soutenir les scientifiques des données dans le développement de solutions d'intelligence artificielle.
 
-Le test se déroule en deux étapes:
+Le test se déroule en deux volets:
 
 1. Test technique: compléter les différentes sections de ce test décrites ci-dessous avant votre entretien.
 2. Entretien collaboratif: présentation de vos réalisations lors de notre rencontre.
@@ -11,7 +11,7 @@ La phase de travail collaboratif a pour objectif de nous donner un aperçu de ce
 
 # Prérequis
 
-- Connaissance d'outils d'orchestration (e.g. Airlfow).
+- Connaissance des outils d'orchestration.
 - Connaissance des APIs et de leurs protocoles.
 - Connaissance des systèmes de bases de données.
 - Connaissance avancée de Python dans les domaines suivants: analyse, visualisation de données et tâches de script.
@@ -26,7 +26,15 @@ Le test technique évalue des aspects clés de l'ingénierie de données chez Mo
 
 Nous développons une application similaire à Spotify avec notre client. Notre objectif est de personnaliser les listes de lecture pour chaque utilisateur en se basant sur leurs écoutes passées. Nous avons créé un modèle de recommandation et utilisé des données extraites manuellement pour son prototypage. Pour la prochaine phase, nous automatiserons l'ingestion de données à partir de l'API de l'application, comprenant trois endpoints: les chansons disponibles, les utilisateurs et leur historique d'écoute. Un flux de données quotidien sera mis en place pour récupérer automatiquement ces données et les stocker dans une base dédiée au système de recommandation.
 
-**Important:** Limiter votre travail de programmation uniquement aux **étapes 1 à 3** incluses.
+---
+
+**Important:**
+
+- [Forker le dépôt](https://github.com/moovai/technical-test-data-engineer/fork), puis soumettez une pull request en contribuant sur la branche `develop` pour envoyer vos travaux.
+- Limiter votre travail de programmation uniquement aux **étapes 1 à 3** incluses.
+- Un fichier `docs/ANSWERS.md` est fourni pour consigner le contenu des réponses et guider l'utilisateur dans l'utilisation de votre solution.
+
+---
 
 1. Un fichier `requirements.txt` liste les librairies à utiliser pour l'étape 2. Créer un environnement virtuel avec l'outil de votre choix et activez-le.
 
@@ -63,6 +71,11 @@ Nous développons une application similaire à Spotify avec notre client. Notre 
 [FastAPI](https://fastapi.tiangolo.com/) est un framework web Python moderne et performant pour la création rapide d'APIs RESTful, offrant une syntaxe intuitive et une documentation interactive automatique. Ce framework est utilisé pour exécuter localement une application.
 
 Placez vous dans le dossier `src/moovitamix_fastapi`, puis exécuter dans votre terminal l'instruction suivante `python -m uvicorn main:app --reload`. Vous retrouverz ensuite l'URL pour accéder à l'application en local. L'application vous redirige automatiquement vers le chemin /docs, si ce n'est pas le cas, rendez-vous directement à: <http://127.0.0.1:8000/docs>.
+
+### Comment rendre mes travaux ?
+
+Vos travaux sont attendus sous forme de pull request sur notre [dépôt](https://github.com/moovai/technical-test-data-engineer/). Aidez-vous de la documention officiel de [github](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) pour trouvez les bonnes ressources à ce sujet.
+
 
 ### Comment rouler les tests ?
 
