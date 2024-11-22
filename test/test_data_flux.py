@@ -364,7 +364,7 @@ def test_handle_process_interval():
     LOCAL_PATH.mkdir(parents=True, exist_ok=True)
 
     start_time = datetime.utcnow()
-    handle_process_interval(timedelta(seconds=5))
+    handle_process_interval(timedelta(seconds=5), LOCAL_PATH)
     end_time = datetime.utcnow()
 
     # Que handle_process_interval n'arrête pas le processus vu que last_run existe pas
@@ -372,7 +372,7 @@ def test_handle_process_interval():
 
     start_time = datetime.utcnow()
     save_last_run(start_time, LOCAL_PATH)
-    handle_process_interval(timedelta(seconds=5))
+    handle_process_interval(timedelta(seconds=5), LOCAL_PATH)
     end_time = datetime.utcnow()
 
     # Que last run arrête le processus pour presque les 5 secondes de test (considérant les maigres pertes de temps en

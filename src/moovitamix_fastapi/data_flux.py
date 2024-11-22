@@ -157,13 +157,13 @@ def process_data(endpoint: str, engine: Engine):
     write_to(formatted_data, endpoint, local=True)
 
 
-def handle_process_interval(interval: timedelta = timedelta(days=1)):
+def handle_process_interval(interval: timedelta = timedelta(days=1), local_path: Path = LOCAL_PATH):
     start_time = datetime.utcnow()
 
     # On va utiliser ce fichier pour que le flux de données retient un certain mémoire; au cas ou le flux de données est
     # arrêté pour n'importe quelle raison, le code saurait quand elle extraire des données quand elle est remis en
     # marche
-    last_run_json = load_last_run()
+    last_run_json = load_last_run(local_path)
 
     # Si le json existe, on va référer à lui pour savoir quand 24h ont passé. Sinon, on commence le processus
     # immédiatement
@@ -186,7 +186,7 @@ def handle_process_interval(interval: timedelta = timedelta(days=1)):
 
     # On va ensuite marquer quand ce run a commencé pour le prochain cycle.
     print(f'Starting data extraction at {start_time}')
-    save_last_run(start_time)
+    save_last_run(start_time, local_path)
 
 
 def main():
