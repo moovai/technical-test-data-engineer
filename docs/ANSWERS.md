@@ -20,7 +20,7 @@ Nous sommes ravis de vous livrer **MooVitamixFlux**—votre solution personnalis
 
 1. **Clonez le dépôt**  
    ~~~bash  
-   git clone https://github.com/your-org/MooVitamixFlux.git  
+   git clone https://github.com/moovai/technical-test-data-engineer.git
    ~~~  
 
 2. **Installez les dépendances**  
@@ -92,15 +92,12 @@ Les données utilisées dans **MooVitamixFlux** sont organisées en plusieurs ta
 
 Cette table contient les informations normalisées sur les utilisateurs du système.
 
-| **Champ**                | **Description**                                          |
-|--------------------------|----------------------------------------------------------|
-| `user_id`                | Identifiant unique de l'utilisateur.                     |
-| `user_updated_at`        | Date et heure de la dernière mise à jour de l'utilisateur.|
-| `user_gender`            | Genre de l'utilisateur.                                 |
-| `user_favorite_genre`    | Genre musical préféré de l'utilisateur.                  |
-
-**Champs indexés pour la recherche :**  
-`user_id`, `user_updated_at`
+| **Champ**                |**Indexé**| **Description**                                          |
+|--------------------------|--|----------------------------------------------------------|
+| `user_id`                |Oui| Identifiant unique de l'utilisateur.                     |
+| `user_updated_at`        |Oui| Date et heure de la dernière mise à jour de l'utilisateur.|
+| `user_gender`            |Non| Genre de l'utilisateur.                                 |
+| `user_favorite_genre`    |Non| Genre musical préféré de l'utilisateur.                  |
 
 ---
 
@@ -108,15 +105,12 @@ Cette table contient les informations normalisées sur les utilisateurs du syst�
 
 Cette table contient les informations normalisées sur les titres musicaux.
 
-| **Champ**                | **Description**                                          |
-|--------------------------|----------------------------------------------------------|
-| `track_id`               | Identifiant unique du titre.                             |
-| `track_duration`         | Durée du titre en secondes.                              |
-| `track_genre`            | Genre musical du titre.                                  |
-| `track_artist`           | Artiste du titre.                                        |
-
-**Champs indexés pour la recherche :**  
-`track_id`
+| **Champ**                |**Indexé**| **Description**                                          |
+|--------------------------|--|----------------------------------------------------------|
+| `track_id`               |Oui| Identifiant unique du titre.                             |
+| `track_duration`         |Non| Durée du titre en secondes.                              |
+| `track_genre`            |Non| Genre musical du titre.                                  |
+| `track_artist`           |Non| Artiste du titre.                                        |
 
 ---
 
@@ -124,15 +118,12 @@ Cette table contient les informations normalisées sur les titres musicaux.
 
 Cette table fait le lien entre les sessions utilisateur et les titres joués au cours de ces sessions.
 
-| **Champ**                | **Description**                                          |
-|--------------------------|----------------------------------------------------------|
-| `session_created_at`     | Date et heure de la création de la session.              |
-| `session_user_id`        | Identifiant de l'utilisateur ayant lancé la session.     |
-| `session_tracks_idx`     | Indice du titre joué dans la session.                    |
-| `track_id`               | Identifiant du titre joué dans la session.               |
-
-**Champs indexés pour la recherche :**  
-`session_created_at`, `session_user_id`, `session_tracks_idx`
+| **Champ**                |**Indexé**| **Description**                                          |
+|--------------------------|--|----------------------------------------------------------|
+| `session_created_at`     |Oui| Date et heure de la création de la session.              |
+| `session_user_id`        |Oui| Identifiant de l'utilisateur ayant lancé la session.     |
+| `session_tracks_idx`     |Oui| Indice du titre joué dans la session.                    |
+| `track_id`               |Non| Identifiant du titre joué dans la session.               |
 
 ---
 
@@ -140,14 +131,11 @@ Cette table fait le lien entre les sessions utilisateur et les titres joués au 
 
 Cette table contient des informations sur les sessions des utilisateurs.
 
-| **Champ**                | **Description**                                          |
-|--------------------------|----------------------------------------------------------|
-| `session_created_at`     | Date et heure de la création de la session.              |
-| `session_user_id`        | Identifiant de l'utilisateur associé à la session.       |
-| `session_tracks_len`     | Nombre de titres joués pendant la session.               |
-
-**Champs indexés pour la recherche :**  
-`session_created_at`, `session_user_id`
+| **Champ**                |**Indexé**| **Description**                                          |
+|--------------------------|--|----------------------------------------------------------|
+| `session_created_at`     |Oui| Date et heure de la création de la session.              |
+| `session_user_id`        |Oui| Identifiant de l'utilisateur associé à la session.       |
+| `session_tracks_len`     |Non| Nombre de titres joués pendant la session.               |
 
 ---
 
@@ -159,7 +147,7 @@ Pour le système **MooVitamixFlux**, il est important de choisir une base de don
 
 Étant donné la nature du projet, qui implique des données liées aux utilisateurs, aux titres musicaux et aux sessions, une base de données relationnelle est recommandée. Nous vous suggérons :
 
-**PostgreSQL** : C'est une base de données relationnelle très robuste et performante, particulièrement bien adaptée aux applications avec des exigences complexes de relations entre les entités. Elle prend en charge les index sur plusieurs colonnes, ce qui améliore la vitesse des recherches dans les tables comme `NmlUsers`, `NmlTracks`, et `NmlSessions`. PostgreSQL permet également des transactions ACID et une haute disponibilité grâce à sa réplication.
+**PostgreSQL** : C'est une base de données relationnelle très robuste et performante, particulièrement bien adaptée aux applications avec des exigences complexes de relations entre les entités. Elle prend en charge les index sur plusieurs colonnes, ce qui améliore la vitesse des recherches. PostgreSQL permet également des transactions ACID et une haute disponibilité grâce à sa réplication.
 
 ### Étape 5
 
