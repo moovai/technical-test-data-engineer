@@ -160,11 +160,11 @@ Dans **MooVitamixFlux**, nous mettons en place une surveillance simple mais effi
 ### 1. **États de Traitement des Données**
 Les états montrent en temps réel combien de données ont été traitées par le pipeline. Ces informations incluent des métriques sur le nombre de sessions, d’utilisateurs et de titres traités, permettant de suivre l'avancement des opérations.
 
-### 2. **Logs d'Erreur**
+### 2. **Logs Client**
 Les logs capturent toute erreur ou événement important, indiquant les moments où quelque chose ne fonctionne pas comme prévu. Cela permet une détection rapide des problèmes et une réponse rapide.
 
-### 3. **Endpoints de Santé**
-Des endpoints de santé (par exemple, `/health`) fournissent une interface simple pour vérifier l'état global du système. Ils permettent au client de voir facilement si tout fonctionne correctement.
+### 3. **Endpoint de Santé**
+Un endpoint éventuel de santé (par exemple, `/health`) fourni une interface simple pour vérifier l'état global du système. Il permet au client de voir facilement si tout fonctionne correctement.
 
 ### 4. **Alertes et Notifications par E-mail**
 Lorsque des erreurs ou des problèmes critiques sont détectés dans le pipeline, des notifications par e-mail peuvent être automatiquement envoyées à l'utilisateur. Cela est particulièrement utile lorsque les appels de mise à jour sont automatisés, garantissant que l'équipe est informée de tout problème sans délai.
