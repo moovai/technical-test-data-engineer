@@ -1,0 +1,31 @@
+services:
+  moovitamix_fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.moovitamix_fastapi
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+
+  moovitamixflux_fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.moovitamixflux_fastapi
+    ports:
+      - "8001:8001"
+    networks:
+      - app_network
+
+  test_moovitamixflux_fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.moovitamixflux_fastapi_test
+    networks:
+      - app_network
+    depends_on:
+      - moovitamixflux_fastapi
+
+networks:
+  app_network:
+    driver: bridge
