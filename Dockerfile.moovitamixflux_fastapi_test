@@ -1,0 +1,24 @@
+# Use Python base image
+FROM python:3.10
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the FastAPI ENL app
+COPY ./src/moovitamixflux_fastapi /app/src
+
+# Copy the test data
+COPY ./test/moovitamixflux_fastapi/ /app/test
+
+# Add the src directory to the PYTHONPATH
+ENV PYTHONPATH=/app/src:$PYTHONPATH
+
+#print hello
+RUN echo "Hello"
+
+# Command to run the FastAPI service
+CMD ["pytest", "/app/test"]
