@@ -21,7 +21,7 @@ class UpdatePipeline(Pipeline):
 
         # Initialize
         logger = Logger()
-        impl = Implementation(logger)
+        impl = Implementation(logger=logger)
 
         # Extract states
         self.add_task_async(
