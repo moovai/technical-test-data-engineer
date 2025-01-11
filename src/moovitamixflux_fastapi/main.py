@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from fastapi import FastAPI, Query, HTTPException
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import RedirectResponse
-from fastapi_pagination import add_pagination, Page, paginate
+from fastapi_pagination import add_pagination, Page
 
 from impl import MockImplementation as Implementation
 from logger import Log
@@ -71,6 +71,6 @@ async def get_logs(
         end_timestamp=end_datetime.timestamp()
     )
 
-    return paginate(logs)
+    return logs
 
 add_pagination(app)
