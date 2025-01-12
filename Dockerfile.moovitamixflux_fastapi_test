@@ -21,4 +21,4 @@ ENV PYTHONPATH=/app/src:$PYTHONPATH
 RUN echo "Hello"
 
 # Command to run the FastAPI service
-CMD ["pytest", "/app/test"]
+CMD ["pytest", "/app/test", "--junitxml=report.xml"]
