@@ -163,11 +163,6 @@ Un endpoint éventuel de santé (par exemple, `/health`) fourni une interface si
 ### 4. **Alertes et Notifications par E-mail**
 Lorsque des erreurs ou des problèmes critiques sont détectés dans le pipeline, des notifications par e-mail peuvent être automatiquement envoyées à l'utilisateur. Cela est particulièrement utile lorsque les appels de mise à jour sont automatisés, garantissant que l'équipe est informée de tout problème sans délai.
 
----
-
-Cette approche permet une surveillance proactive du pipeline de données et assure une réponse rapide en cas de besoin.
-
-
 ### Étape 6
 
 # 📈 Automatisation du Calcul des Recommandations
@@ -188,13 +183,6 @@ Pour entraîner ces modèles, les données d'entraînement sont générées à p
 - **Toutes les sessions passées de longueur *n*** : en utilisant toutes les pistes de la session pour une entrée de l'entraînement.  
 - **Toutes les sessions passées de longueur supérieure à *n*** : en créant plusieurs segments de longueur *n* à partir de ces sessions (par exemple, les plages 1 à 3 et 2 à 4 dans une session de longueur 4).  
 
-#### Configurations d'entraînement possibles
-Les configurations utilisées dans les modèles incluent notamment :  
-- `(track_1_feature, track_2_feature) ? (track_3_feature)`  
-- `(track_1_full_feature_set, track_2_full_feature_set, track_3_partial_feature_set) ? (track_3_specific_feature)`  
-
-Cette méthode garantit que le modèle s'adapte dynamiquement à l'état actuel de la session et fournit des recommandations précises basées sur la progression de l'utilisateur.
-
 
 ## 🌍 Analyse des Scores Globaux
 
@@ -204,14 +192,31 @@ Les scores globaux permettent d'analyser les tendances à travers des paramètre
 ### 2. **Analyse des Fluctuations**
 Il est possible que des fluctuations se produisent au sein d'une même session, car l'engagement de l'utilisateur peut varier au fil du temps. Une "énergie infinie" n'est pas réaliste, et il est important de prévoir une sortie graduelle de l'utilisateur. Cela peut se traduire par une pause ou une fin de session bien placée, ce qui non seulement optimise l'expérience utilisateur, mais augmente aussi les chances de son retour pour de futures sessions.
 
----
-
-Cette approche permet d'automatiser le calcul des recommandations en fonction de l'engagement utilisateur, tout en prenant en compte les tendances globales et les fluctuations au sein d'une session pour améliorer l'expérience et fidéliser l'utilisateur.
-
-
 
 ### Étape 7
 
+## 🔄 Réentrainement du modèle de recommandation
 
+Le réentrainement du modèle de recommandation se fait en deux étapes : **historical mining** et **scenario sculpting**.
+Voir Figure 1.
+
+### 1. **Historical Mining**
+- **Élagage des données invalides, suspectes et fausses** pour obtenir des données authentiques mais biaisées.
+- **Dosage des données** pour créer un échantillon équilibré et représentatif.
+
+### 2. **Scenario Sculpting**
+- **Identification des scénarios cibles via les scores d'engagement :** À partir des requêtes des utilisateurs, les scénarios sont identifiés en fonction des scores d'engagement obtenus pour chaque combinaison de données. Cela permet de déterminer les prédictions les plus pertinentes en fonction du comportement de l'utilisateur.
+- **Scorage pour prédiction :** Évaluation des scénarios pour ajuster les recommandations du modèle, en fonction des tendances d'engagement observées.
+
+
+### 3. **AB Testing et Sélection des Meilleurs Scénarios**
+Les prédictions sont testées par AB testing pour mesurer l'engagement. Ce processus génère de nouveaux lots de données, chacun avec un biais distinct à compenser.
+
+- **Batches gagnants :** Les lots les plus performants (meilleur engagement) sont dupliqués.
+- **Batches perdants :** Les lots sous-performants sont éliminés.
+
+Ce processus se transforme en un **tournoi éternel de lots**, où les scénarios sont constamment testés, affinés, et sélectionnés pour créer un modèle évolutif qui privilégie les résultats les plus favorables à l'engagement utilisateur. Comme un processus évolutif, ce cycle perpétuel permet une amélioration continue des recommandations.
+
+Figure 1: Aperçu du chemin des données
 [![Image Preview](moovitamixlearn_thumb.png)](moovitamixlearn.jpg)
 
