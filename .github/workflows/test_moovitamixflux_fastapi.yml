@@ -44,4 +44,4 @@ jobs:
         with:
           name: Unit Tests
           path: report.xml
-          
+          reporter: jest-junit
