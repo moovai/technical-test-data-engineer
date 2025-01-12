@@ -38,17 +38,10 @@ jobs:
       - name: Stop Docker Compose services
         run: docker compose down
 
-      # Upload the test results
-      - name: Upload test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: report.xml
-
       # Report test results
       - name: Report test results
         uses: dorny/test-reporter@v1
         with:
           name: Unit Tests
           path: report.xml
-          reporter: junit
+          reporter: pytest
