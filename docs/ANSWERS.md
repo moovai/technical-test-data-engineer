@@ -172,7 +172,7 @@ Cette approche permet une surveillance proactive du pipeline de données et assu
 
 # 📈 Automatisation du Calcul des Recommandations
 
-Dans **MooVitamixFlux**, l'automatisation du calcul des recommandations repose en autre sur l'attribution d'un score d'engagement à chaque titre joué dans une session utilisateur. Ce score est influencé par la position du titre dans la session.
+Dans **MooVitamixFlux**, l'automatisation du calcul des recommandations repose entre autre sur l'attribution d'un score d'engagement à chaque titre joué dans une session utilisateur. Ce score est influencé par la position du titre dans la session.
 
 ## 🧑‍💻 Calcul du Score d'Engagement
 
