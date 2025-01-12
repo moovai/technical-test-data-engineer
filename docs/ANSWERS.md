@@ -87,7 +87,7 @@ Les données utilisées dans **MooVitamixFlux** sont organisées en plusieurs ta
 
 ### **1. Table des Utilisateurs (`NmlUsers`)**
 
-Cette table contient les informations normalisées sur les utilisateurs du système.
+Cette table contient les informations normalisées sur les utilisateurs du système, en tenant compte des variations possibles de leur genre et genre musical préféré au fil du temps. Le champ `updated_at` est indexé pour permettre de prendre en compte les valeurs de ces attributs au moment de la session.
 
 | **Champ**                |**Indexé**| **Description**                                          |
 |--------------------------|--|----------------------------------------------------------|
@@ -113,7 +113,7 @@ Cette table contient les informations normalisées sur les titres musicaux.
 
 ### **3. Table des Titres par Session (`NmlSessionTracks`)**
 
-Cette table fait le lien entre les sessions utilisateur et les titres joués au cours de ces sessions.
+Cette table fait le lien entre les sessions utilisateur et les titres joués au cours de ces sessions. Les trois premières clés combinées forment un identifiant unique pour chaque lecture de titre.
 
 | **Champ**                |**Indexé**| **Description**                                          |
 |--------------------------|--|----------------------------------------------------------|
@@ -126,17 +126,13 @@ Cette table fait le lien entre les sessions utilisateur et les titres joués au 
 
 ### **4. Table des Sessions (`NmlSessions`)**
 
-Cette table contient des informations sur les sessions des utilisateurs.
+Cette table contient des informations sur les sessions des utilisateurs. Les deux premières clés combinées forment un identifiant unique pour chaque session.
 
 | **Champ**                |**Indexé**| **Description**                                          |
 |--------------------------|--|----------------------------------------------------------|
 | `session_created_at`     |Oui| Date et heure de la création de la session.              |
 | `session_user_id`        |Oui| Identifiant de l'utilisateur associé à la session.       |
 | `session_tracks_len`     |Non| Nombre de titres joués pendant la session.               |
-
----
-
-Ces tables sont utilisées pour gérer les différentes entités du système et sont essentielles pour assurer le bon fonctionnement des processus de synchronisation et d'analyse dans **MooVitamixFlux**.
 
 ## 🗄️ Choisir la Base de Données Idéale
 
