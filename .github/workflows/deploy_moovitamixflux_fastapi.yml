@@ -1,11 +1,11 @@
-name: Build and Run
+name: Build and Deploy
 
 on:
   # Manual trigger from the GitHub UI
   workflow_dispatch:
 
 jobs:
-  build-and-run:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +17,4 @@ jobs:
       - name: Build Docker Compose services
         run: docker compose build
 
-      # Run the Docker Compose services
-      - name: Run Docker Compose services
-        run: docker compose up
+      # TODO: add deployment steps here

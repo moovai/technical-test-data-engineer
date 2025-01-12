@@ -26,4 +26,8 @@ jobs:
 
       # Run the Docker Compose services
       - name: Run Docker Compose services
-        run: docker compose --profile test up
+        run: docker compose --profile test up --exit-code-from test_moovitamixflux_fastapi
+
+      # Stop the Docker Compose services
+      - name: Stop Docker Compose services
+        run: docker compose down
