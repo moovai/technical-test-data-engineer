@@ -1,0 +1,29 @@
+name: Build and Test
+
+on:
+  # Manual trigger from the GitHub UI
+  workflow_dispatch:
+    
+  # Automatic trigger on push to 'develop' branch
+  push:
+    branches:
+      - develop
+    paths-ignore:
+      - '.github/workflows/*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Build the Docker Compose services
+      - name: Build Docker Compose services
+        run: docker-compose build
+
+      # Run the Docker Compose services
+      - name: Run Docker Compose services
+        run: docker-compose --profile test up

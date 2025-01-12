@@ -25,6 +25,8 @@ services:
       - app_network
     depends_on:
       - moovitamixflux_fastapi
+    profiles:
+      - test
 
 networks:
   app_network:
