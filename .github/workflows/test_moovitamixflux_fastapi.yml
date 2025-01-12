@@ -36,6 +36,7 @@ jobs:
 
       # Upload the test results
       - name: Upload test results
-        uses: actions/upload-test-report@v2
+        uses: actions/upload-artifact@v3
         with:
+          name: test-results
           path: report.xml
