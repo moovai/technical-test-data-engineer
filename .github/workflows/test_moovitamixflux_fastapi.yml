@@ -44,3 +44,11 @@ jobs:
         with:
           name: test-results
           path: report.xml
+
+      # Report test results
+      - name: Report test results
+        uses: dorny/test-reporter@v1
+        with:
+          name: Unit Tests
+          path: report.xml
+          reporter: junit
