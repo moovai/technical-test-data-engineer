@@ -11,7 +11,7 @@ Nous sommes ravis de vous livrer **MooVitamixFlux**—votre solution personnalis
 ## 🌟 Fonctionnalités principales  
 
 - **Extraction des données source :** Le pipeline extrait les données des endpoints MooVitamix de manière incrémentale, traitant les informations par morceaux pour une gestion efficace.  
-- **Traitement hiérarchique :** Les utilisateurs et les titres musicaux sont traités en premier, permettant une validation initiale avant de passer aux sessions et aux pistes associées.  
+- **Traitement hiérarchique :** Les utilisateurs et les titres musicaux sont traités en premier pour permettre une validation initiale. Cette validation consiste à s'assurer que les sessions normalisées contiennent des identifiants de piste et d'utilisateur qui correspondent avant d'être ajoutées à la base de données des sessions normalisées. Cela garantit que les données des sessions sont cohérentes et que seules les informations valides sont utilisées dans le processus de recommandation.
 - **Chargement atomique :** Les données sont chargées dans un format atomique structuré (utilisateurs, titres, sessions, pistes de session), prêtes pour l'extraction de caractéristiques et une ingestion directe par des modèles d'apprentissage automatique.  
 - **Suivi des états d'extraction :** Le pipeline conserve un historique détaillé des états d'extraction, permettant de diviser les opérations en mises à jour de taille raisonnable et offrant une vue historique sur la progression globale.  
 - **Journalisation accessible :** Tous les événements notables du pipeline sont enregistrés et mis à disposition du client via une interface conviviale, facilitant la traçabilité et la gestion.  
@@ -21,20 +21,37 @@ Nous sommes ravis de vous livrer **MooVitamixFlux**—votre solution personnalis
 
 ## 📚 Prise en main  
 
-1. **Clonez le dépôt**  
+1. **Téléchargez et installez Docker**  
+   Avant de commencer, assurez-vous que Docker Desktop est installé et en cours d'exécution sur votre machine. Vous pouvez télécharger Docker Desktop depuis [ici](https://www.docker.com/products/docker-desktop) et suivre les instructions d'installation. Assurez-vous que Docker est bien lancé avant de continuer.
+
+2. **Clonez le dépôt**  
    ~~~bash  
    git clone https://github.com/moovai/technical-test-data-engineer.git
    ~~~  
 
-2. **Installez les dépendances**  
+3. **Construisez l'image Docker**  
+   Accédez au dossier cloné et construisez l'image Docker :  
    ~~~bash  
-   pip install -r requirements.txt  
+   docker compose build  
    ~~~  
 
-3. **Lancez l'application**  
+4. **Démarrez l'application avec Docker Compose**  
+   Vous pouvez démarrer l'application avec l'une des commandes suivantes, selon l'usage :
+
+   - Pour démarrer l'application normalement :  
    ~~~bash  
-   uvicorn main:app --reload  
+   docker compose up  
    ~~~  
+
+   - **Pour exécuter des tests unitaires après avoir effectué des changements de code :**  
+   ~~~bash  
+   docker compose --profile test up  
+   ~~~  
+
+5. **Accédez à l'application et aux points de terminaison**  
+   Une fois l'application lancée, vous pouvez accéder aux points de terminaison et à leur documentation à l'adresse suivante :  
+   [http://localhost:8001/](http://localhost:8001/)
+
 
 ---
 
@@ -56,20 +73,6 @@ Une fois l'application lancée, vous pouvez interagir avec les points de termina
 
    Exemple :  
    `GET /get_logs?start_datetime=2025-01-01 00:00:00&end_datetime=2025-01-08 00:00:00`  
-
-
----
-
-## 🤝 Commentaires et support  
-
-Nous sommes là pour vous aider ! Si vous avez des questions, des suggestions ou des problèmes :
-
-- Ouvrez une issue dans ce dépôt.
-- Contactez-nous via support@moovitamixflux.fake.com
-
----
-
-Merci de nous avoir confié ce projet. Nous espérons qu'il vous servira bien et qu'il évoluera avec vos besoins ! 😊
 
 
 ## Questions (étapes 4 à 7)
@@ -141,7 +144,7 @@ Pour le système **MooVitamixFlux**, il est important de choisir une base de don
 
 Étant donné la nature du projet, qui implique des données liées aux utilisateurs, aux titres musicaux et aux sessions, une base de données relationnelle est recommandée. Nous vous suggérons :
 
-**PostgreSQL** : C'est une base de données relationnelle très robuste et performante, particulièrement bien adaptée aux applications avec des exigences complexes de relations entre les entités. Elle prend en charge les index sur plusieurs colonnes, ce qui améliore la vitesse des recherches. PostgreSQL permet également des transactions ACID et une haute disponibilité grâce à sa réplication.
+**PostgreSQL** : C'est une base de données relationnelle très robuste et performante, particulièrement bien adaptée aux applications avec des exigences complexes de relations entre les entités. Elle prend en charge les index sur plusieurs colonnes, ce qui améliore la vitesse des recherches.
 
 ### Étape 5
 
