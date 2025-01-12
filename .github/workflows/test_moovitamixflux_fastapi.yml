@@ -20,6 +20,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       # Build the Docker Compose services
       - name: Build Docker Compose services
         run: docker-compose build
