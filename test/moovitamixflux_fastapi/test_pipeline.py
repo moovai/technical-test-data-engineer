@@ -2,11 +2,6 @@ import asyncio
 
 from src.pipeline import Pipeline, Task, AsyncFunc, Func
 
-'''
-Félicitations ! Vous voilà maintenant l'heureux détenteur de l'appli MooVitamix-ENL. LA solution clé en main pour la gestion de vos pipelines de données.
-Bienvenue au volant de votre nouvelle application. Vous avez maintenant la possibilité d'observer la bonne santé de vos pipelines de données de manière simple et efficace.
-'''
-
 # TODO: test that using a Func or AsyncFunc at the wrong time raises an error 
 # TODO: test that using add_task_async with a Func raises an error
 # TODO: test that using add_task with an AsyncFunc raises an error

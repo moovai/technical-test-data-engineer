@@ -10,7 +10,7 @@ from update import UpdatePipeline
 from state import State
 
 app = FastAPI(
-    title="MooVitamix ENL",
+    title="MooVitamixFlux",
     description="Data synchronization app for the MooVitamix music recommendation system.",
     version="1.0",
     docs_url=None,
@@ -29,7 +29,7 @@ async def docs_redirect():
 async def overridden_swagger():
     return get_swagger_ui_html(
         openapi_url=app.openapi_url,
-        title="MooVitamix ENL",
+        title="MooVitamixFlux",
         swagger_favicon_url="https://moov.ai/wp-content/uploads/2019/07/cropped-favicon-1-32x32.png",
     )
 

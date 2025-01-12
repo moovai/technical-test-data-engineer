@@ -4,9 +4,6 @@ from src.shared import ListenHistoryOut as Session
 from src.shared import TracksOut as Track
 from src.shared import UsersOut as User
 
-# TODO: test each Implementation method given mock input values
-# TODO: test the UpdatePipeline and its Implementation given mock input values
-
 def test_impl_get_lookup_ctx():
 
     # assert that the output data range is the same as the input
@@ -27,3 +24,6 @@ def test_impl_get_lookup_ctx():
     # TODO: assert that the column count (shape[1]) of lookup_ctx.mnl_sessions.rows equals OBS_RANGE
     # once the NmlSessions.rows property is refactored as a np.ndarray
 
+# TODO: test each Implementation method
+# TODO: test UpdatePipeline output state
+# TODO: test UpdatePipeline output logging

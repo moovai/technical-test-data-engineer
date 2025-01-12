@@ -10,9 +10,12 @@ Nous sommes ravis de vous livrer **MooVitamixFlux**—votre solution personnalis
 
 ## 🌟 Fonctionnalités principales  
 
-- **Synchronisation des données :** Synchronise les données pour des mises à jour en temps réel dans le système MooVitamix.  
-- **Intégration API :** Fournit une API entièrement intégrée pour l'accès aux données et les mises à jour.  
-- **Gestion des logs :** Suivi des logs avec filtrage temporel et pagination.  
+- **Extraction des données source :** Le pipeline extrait les données des endpoints MooVitamix de manière incrémentale, traitant les informations par morceaux pour une gestion efficace.  
+- **Traitement hiérarchique :** Les utilisateurs et les titres musicaux sont traités en premier, permettant une validation initiale avant de passer aux sessions et aux pistes associées.  
+- **Chargement atomique :** Les données sont chargées dans un format atomique structuré (utilisateurs, titres, sessions, pistes de session), prêtes pour l'extraction de caractéristiques et une ingestion directe par des modèles d'apprentissage automatique.  
+- **Suivi des états d'extraction :** Le pipeline conserve un historique détaillé des états d'extraction, permettant de diviser les opérations en mises à jour de taille raisonnable et offrant une vue historique sur la progression globale.  
+- **Journalisation accessible :** Tous les événements notables du pipeline sont enregistrés et mis à disposition du client via une interface conviviale, facilitant la traçabilité et la gestion.  
+
 
 ---
 
@@ -37,31 +40,23 @@ Nous sommes ravis de vous livrer **MooVitamixFlux**—votre solution personnalis
 
 ## 💡 Comment utiliser  
 
-Une fois l'application lancée, vous pouvez interagir avec les points de terminaison suivants :
+Une fois l'application lancée, vous pouvez interagir avec les points de terminaison suivants :  
 
-1. **Mettre à jour l'état**  
-   Déclenche une mise à jour de l'état de MooVitamix en utilisant :  
+1. **Mise à jour des données**  
+   Déclenche une opération de mise à jour, partielle ou complète, qui extrait les données des endpoints source de MooVitamix, traite les informations, et charge les données normalisées dans la base de données :  
    `GET /update`  
 
-2. **Récupérer les états**  
-   Récupérez les états actuels avec pagination :  
+2. **Récupération des états d'extraction**  
+   Retourne les enregistrements FIFO des états de progression des extractions précédentes, avec prise en charge de la pagination :  
    `GET /get_states`  
 
-3. **Récupérer les logs**  
-   Récupérez les logs en fonction d'une plage horaire :  
+3. **Récupération des logs**  
+   Retourne les enregistrements FIFO des événements notables du pipeline, avec la possibilité de filtrer par plage temporelle :  
    `GET /get_logs?start_datetime=<start>&end_datetime=<end>`  
 
    Exemple :  
-   `GET /get_logs?start_datetime=2025-01-01 00:00:00&end_datetime=2025-01-08 00:00:00`
+   `GET /get_logs?start_datetime=2025-01-01 00:00:00&end_datetime=2025-01-08 00:00:00`  
 
----
-
-## 🔧 Maintenance et mises à jour  
-
-Nous avons veillé à ce que la maintenance de cette solution soit simple :
-
-- **Mise à jour automatique :** Le point de terminaison `/update` garantit que la synchronisation des données est toujours à jour.
-- **Logs paginés :** Les logs sont paginés pour faciliter la navigation via le point de terminaison `/get_logs`.
 
 ---
 
@@ -75,7 +70,6 @@ Nous sommes là pour vous aider ! Si vous avez des questions, des suggestions ou
 ---
 
 Merci de nous avoir confié ce projet. Nous espérons qu'il vous servira bien et qu'il évoluera avec vos besoins ! 😊
-
 
 
 ## Questions (étapes 4 à 7)
@@ -178,7 +172,7 @@ Cette approche permet une surveillance proactive du pipeline de données et assu
 
 # 📈 Automatisation du Calcul des Recommandations
 
-Dans **MooVitamixFlux**, l'automatisation du calcul des recommandations repose sur l'attribution d'un score d'engagement à chaque titre joué dans une session utilisateur. Ce score est influencé par la position du titre dans la session.
+Dans **MooVitamixFlux**, l'automatisation du calcul des recommandations repose en autre sur l'attribution d'un score d'engagement à chaque titre joué dans une session utilisateur. Ce score est influencé par la position du titre dans la session.
 
 ## 🧑‍💻 Calcul du Score d'Engagement
 
@@ -186,7 +180,21 @@ Dans **MooVitamixFlux**, l'automatisation du calcul des recommandations repose s
 Les titres joués au début d'une session ont un score plus élevé car l'utilisateur a écouté plus de morceaux, ce qui signifie un engagement plus fort. Les titres joués plus tard dans la session reçoivent un score négatif, car l'utilisateur a arrêté l'écoute après ces titres. Le nombre de titres dans la session influence directement ce calcul, avec des sessions longues attribuant de meilleurs scores aux premiers titres.
 
 ### 2. **Sessions de Formation**
-Les sessions longues sont coupées en segments de longueur n pour créer des données d'entraînement. Cela permet d'utiliser des sessions plus courtes comme base pour l'entraînement, en adaptant le modèle à différents types de sessions d'écoute.
+
+Les sessions d'écoute sont découpées en segments de longueur *n*, où *n* correspond au nombre de pistes dans une session. Lorsqu'un utilisateur effectue une requête pour obtenir une recommandation, la longueur actuelle de sa session est utilisée pour déterminer la valeur de *n*, en ajoutant 1. Par exemple, si la session en cours contient 2 pistes, alors *n = 3*, et le modèle correspondant à *n = 3* est utilisé.
+
+#### Données d'entraînement
+Pour entraîner ces modèles, les données d'entraînement sont générées à partir de :  
+- **Toutes les sessions passées de longueur *n*** : en utilisant toutes les pistes de la session pour une entrée de l'entraînement.  
+- **Toutes les sessions passées de longueur supérieure à *n*** : en créant plusieurs segments de longueur *n* à partir de ces sessions (par exemple, les plages 1 à 3 et 2 à 4 dans une session de longueur 4).  
+
+#### Configurations d'entraînement possibles
+Les configurations utilisées dans les modèles incluent notamment :  
+- `(track_1_feature, track_2_feature) ? (track_3_feature)`  
+- `(track_1_full_feature_set, track_2_full_feature_set, track_3_partial_feature_set) ? (track_3_specific_feature)`  
+
+Cette méthode garantit que le modèle s'adapte dynamiquement à l'état actuel de la session et fournit des recommandations précises basées sur la progression de l'utilisateur.
+
 
 ## 🌍 Analyse des Scores Globaux
 
