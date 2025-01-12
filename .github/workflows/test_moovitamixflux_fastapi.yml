@@ -38,10 +38,25 @@ jobs:
       - name: Stop Docker Compose services
         run: docker compose down
 
-      # Report test results
-      - name: Report test results
-        uses: dorny/test-reporter@v1
+      # Surface failing tests
+      - name: Surface failing tests
+        if: always()
+        uses: pmeier/pytest-results-action@main
         with:
-          name: Unit Tests
+          # A list of JUnit XML files, directories containing the former, and wildcard
+          # patterns to process.
+          # See @actions/glob for supported patterns.
           path: report.xml
-          reporter: jest-junit
+      
+          # (Optional) Add a summary of the results at the top of the report
+          summary: true
+      
+          # (Optional) Select which results should be included in the report.
+          # Follows the same syntax as `pytest -r`
+          display-options: fEX
+      
+          # (Optional) Fail the workflow if no JUnit XML was found.
+          fail-on-empty: true
+      
+          # (Optional) Title of the test results section in the workflow summary
+          title: Test results
