@@ -27,7 +27,11 @@ jobs:
       # Run the Docker Compose services
       - name: Run Docker Compose services
         run: 
-          docker compose --profile test up --exit-code-from test_moovitamixflux_fastapi
+          docker compose --profile test up --exit-code-from test_moovitamixflux_fastapi 
+
+      # Copy the test results
+      - name: Copy the test results
+        run: 
           docker compose cp test_moovitamixflux_fastapi:/app/report.xml ./report.xml
 
       # Stop the Docker Compose services
