@@ -1,98 +1,221 @@
-# Objectif
+# Réponses du test
 
-Ce test est élaboré pour mettre en lumière votre expertise dans le domaine de l'ingénierie des données à travers l'utilisation du langage de programmation Python. Il vise également à évaluer votre capacité à soutenir les scientifiques des données dans le développement de solutions d'intelligence artificielle.
+## _Utilisation de la solution (étape 1 à 3)_
 
-Le test se déroule en deux volets:
+# Bienvenue dans MooVitamixFlux 🚀
 
-1. Test technique: compléter les différentes sections de ce test décrites ci-dessous avant votre entretien.
-2. Entretien collaboratif: présentation de vos réalisations lors de notre rencontre.
-
-La phase de travail collaboratif a pour objectif de nous donner un aperçu de ce à quoi il serait de travailler ensemble et devrait être perçue comme un effort mutuel. S'en terminera un échange d'expériences sur le test dans son ensemble.
-
-# Prérequis
-
-- Connaissance des outils d'orchestration.
-- Connaissance des APIs et de leurs protocoles.
-- Connaissance des systèmes de bases de données.
-- Connaissance avancée de Python dans les domaines suivants: analyse, visualisation de données et tâches de script.
-
-Veuillez noter que ce test technique ne nécessite *aucun frais* de votre part.
-
-## Contexte
-
-Le test technique évalue des aspects clés de l'ingénierie de données chez Moov AI : la conception et la mise en œuvre de flux de données pour alimenter des modèles, ainsi que le soutien aux scientifiques de données dans la mise en place de solutions de machine learning. Il ne se concentre pas sur les compétences spécifiques des outils, mais sur la compréhension des concepts et des défis. La durée estimée est de 3 à 5 heures, avec des solutions à soumettre par courriel avant une réunion en personne. Moov AI, une société de conseil, adapte ses technologies aux clients et encourage l'utilisation d'outils au choix. La revue du test prendra en compte plusieurs aspects, notamment la conception du pipeline de données et du stockage (fiabilité, performance, évolutivité, schéma de données, gestions des erreurs et alertes) ainsi que le système de recommandations (automatisation, connaissance de Git, automatisation des tests et des déploiements).
-
-### Mise en situation
-
-Nous développons une application similaire à Spotify avec notre client. Notre objectif est de personnaliser les listes de lecture pour chaque utilisateur en se basant sur leurs écoutes passées. Nous avons créé un modèle de recommandation et utilisé des données extraites manuellement pour son prototypage. Pour la prochaine phase, nous automatiserons l'ingestion de données à partir de l'API de l'application, comprenant trois endpoints: les chansons disponibles, les utilisateurs et leur historique d'écoute. Un flux de données quotidien sera mis en place pour récupérer automatiquement ces données et les stocker dans une base dédiée au système de recommandation.
+Nous sommes ravis de vous livrer **MooVitamixFlux**—votre solution personnalisée de synchronisation des données pour le système de recommandation musicale MooVitamix. Ce dépôt contient tout ce dont vous avez besoin pour commencer et maintenir votre projet facilement.
 
 ---
 
-**Important:**
+## 🌟 Fonctionnalités principales  
 
-- [Forker le dépôt](https://github.com/moovai/technical-test-data-engineer/fork), puis soumettez une pull request en contribuant sur la branche `develop` pour envoyer vos travaux.
-- Un fichier `docs/ANSWERS.md` est fourni pour :  
-  - guider l'utilisateur dans l'utilisation de votre solution (étapes 1 à 3).  
-  - répondre aux questions (étapes 4 à 7).
-- Limiter votre travail de programmation uniquement aux **étapes 1 à 3** incluses.
+- **Extraction des données source :** Le pipeline extrait les données des endpoints MooVitamix de manière incrémentale, traitant les informations par morceaux pour une gestion efficace.  
+- **Traitement hiérarchique :** Les utilisateurs et les titres musicaux sont traités en premier pour permettre une validation initiale. Cette validation consiste à s'assurer que les sessions normalisées contiennent des identifiants de piste et d'utilisateur qui correspondent avant d'être ajoutées à la base de données des sessions normalisées. Cela garantit que les données des sessions sont cohérentes et que seules les informations valides sont utilisées dans le processus de recommandation.
+- **Chargement atomique :** Les données sont chargées dans un format atomique structuré (utilisateurs, titres, sessions, pistes de session), prêtes pour l'extraction de caractéristiques et une ingestion directe par des modèles d'apprentissage automatique.  
+- **Suivi des états d'extraction :** Le pipeline conserve un historique détaillé des états d'extraction, permettant de diviser les opérations en mises à jour de taille raisonnable et offrant une vue historique sur la progression globale.  
+- **Journalisation accessible :** Tous les événements notables du pipeline sont enregistrés et mis à disposition du client via une interface conviviale, facilitant la traçabilité et la gestion.  
+
 
 ---
 
-1. Un fichier `requirements.txt` liste les librairies à utiliser pour l'étape 2. Créer un environnement virtuel avec l'outil de votre choix et activez-le.
+## 📚 Prise en main  
 
-2. Élaborer un flux de données, en **python**, conçu pour récupérer quotidiennement les données de l'API.
-*Pour lancer le serveur, déplacez-vous dans le dossier `src/moovitamix_fastapi` puis exécuter la commande `python -m uvicorn main:app`.*
+1. **Téléchargez et installez Docker**  
+   Avant de commencer, assurez-vous que Docker Desktop est installé et en cours d'exécution sur votre machine. Vous pouvez télécharger Docker Desktop depuis [ici](https://www.docker.com/products/docker-desktop) et suivre les instructions d'installation. Assurez-vous que Docker est bien lancé avant de continuer.
 
-3. Mettez en place quelques tests unitaires sur les composants de votre flux de données.
-*Choisissez judicieusement des tests unitaires essentiels pour votre flux de données, sans exagérer leur nombre.*
+2. **Clonez le dépôt**  
+   ~~~bash  
+   git clone https://github.com/moovai/technical-test-data-engineer.git
+   ~~~  
 
-4. Détailler le schéma de la base de données que vous utiliseriez pour stocker les informations récupérées des trois sources de données mentionnées plus tôt. Quel système de base de données recommanderiez-vous pour répondre à ces besoins et pourquoi?
+3. **Construisez l'image Docker**  
+   Accédez au dossier cloné et construisez l'image Docker :  
+   ~~~bash  
+   docker compose build  
+   ~~~  
 
-5. Le client exprime le besoin de suivre la santé du pipeline de données dans son exécution quotidienne. Expliquez votre méthode de surveillance à ce sujet et les métriques clés.
+4. **Démarrez l'application avec Docker Compose**  
+   Vous pouvez démarrer l'application avec l'une des commandes suivantes, selon l'usage :
 
-   Félicitations, à ce stade les données sont ingérées quotidiennement grâce à votre pipeline de données! Les scientifiques de données sollicitent votre collaboration pour la mise en place de l’architecture du système de recommandation. Votre expertise est sollicitée pour automatiser le calcul des recommandations et pour automatiser le réentrainement du modèle.
+   - Pour démarrer l'application normalement :  
+   ~~~bash  
+   docker compose up  
+   ~~~  
 
-6. Dessinez et/ou expliquez comment vous procèderiez pour automatiser le calcul des recommandations.
+   - **Pour exécuter des tests unitaires après avoir effectué des changements de code :**  
+   ~~~bash  
+   docker compose --profile test up  
+   ~~~  
 
-7. Dessinez et/ou expliquez comment vous procèderiez pour automatiser le réentrainement du modèle de recommandation.
+5. **Accédez à l'application et aux points de terminaison**  
+   Une fois l'application lancée, vous pouvez accéder aux points de terminaison et à leur documentation à l'adresse suivante :  
+   [http://localhost:8001/](http://localhost:8001/)
 
-### Trucs et astuces
 
-- Nous estimons la durée de ce test entre 3 et 5 heures suivant votre appétence technique.
-- Le projet a été testé avec python "^3.9,<3.13", nous vous recommandoncs une version comprise dans cette plage.
-- Nous ne privilégions aucune approche spécifique pour vos travaux. Notre intérêt se porte sur les choix que vous effectuez, leur justification, ainsi que sur votre méthodologie de développement.
-- Nous vous encourageons à évaluer le degré de normalisation requis pour votre schéma et à déterminer la pertinence de l'utilisation de clés étrangères pour la jointure des tables.
-- Il est impératif que votre code soit exécutable.
-- Veuillez mettre en place la gestion des erreurs et test approprié à votre solution.
-- Vous avez la possibilité d'enregistrer les données localement; une base de données n'est pas nécessaire pour ce test.
+---
 
-## FAQ
+## 💡 Comment utiliser  
 
-### Comment accéder aux données de l'API?
+Une fois l'application lancée, vous pouvez interagir avec les points de terminaison suivants :  
 
-[FastAPI](https://fastapi.tiangolo.com/) est un framework web Python moderne et performant pour la création rapide d'APIs RESTful, offrant une syntaxe intuitive et une documentation interactive automatique. Ce framework est utilisé pour exécuter localement une application.
+1. **Mise à jour des données**  
+   Déclenche une opération de mise à jour, partielle ou complète, qui extrait les données des endpoints source de MooVitamix, traite les informations, et charge les données normalisées dans la base de données :  
+   `GET /update`  
 
-Placez vous dans le dossier `src/moovitamix_fastapi`, puis exécuter dans votre terminal l'instruction suivante `python -m uvicorn main:app --reload`. Vous retrouverz ensuite l'URL pour accéder à l'application en local. L'application vous redirige automatiquement vers le chemin /docs, si ce n'est pas le cas, rendez-vous directement à: <http://127.0.0.1:8000/docs>.
+2. **Récupération des états d'extraction**  
+   Retourne les enregistrements FIFO des états de progression des extractions précédentes, avec prise en charge de la pagination :  
+   `GET /get_states`  
 
-### Comment rendre mes travaux ?
+3. **Récupération des logs**  
+   Retourne les enregistrements FIFO des événements notables du pipeline, avec la possibilité de filtrer par plage temporelle :  
+   `GET /get_logs?start_datetime=<start>&end_datetime=<end>`  
 
-Vos travaux sont attendus sous forme de pull request sur notre [dépôt](https://github.com/moovai/technical-test-data-engineer/). Aidez-vous de la documention officiel de [github](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) pour trouvez les bonnes ressources à ce sujet.
+   Exemple :  
+   `GET /get_logs?start_datetime=2025-01-01 00:00:00&end_datetime=2025-01-08 00:00:00`  
 
-### Comment rouler les tests ?
 
-[PyTest](https://docs.pytest.org/en/8.2.x/) est un framework de test pour Python. Il permet de créer des tests unitaires, d'intégration et de fonctionnalité de manière simple et efficace. Pytest facilite l'écriture des tests en utilisant une syntaxe claire et concise.
+## Questions (étapes 4 à 7)
 
-Pour exécuter les tests, diriger vous à la racine du projet et exécuter la commande `pytest`.
-Le résultat devrait ressemblait à ceci:
+### Étape 4
 
-```bash
-=================================================================================== test session starts ===================================================================================
-platform darwin -- Python 3.9.19, pytest-8.2.1, pluggy-1.5.0
-rootdir: /Users/noesautel/Git/technical-test-data-engineer
-plugins: Faker-25.3.0, anyio-4.4.0
-collected 3 items                                                                                                                                                                         
+## 📊 Schéma des données normalisées
 
-test/test_classes_out.py ...                                                                                                                                                        [100%]
+Les données utilisées dans **MooVitamixFlux** sont organisées en plusieurs tables normalisées. Chaque table représente une entité distincte du système et contient des informations structurées pour faciliter les manipulations et les analyses. Voici un aperçu des différentes tables et de leur contenu.
 
-==================================================================================== 3 passed in 0.12s ====================================================================================
-```
+---
+
+### **1. Table des Utilisateurs (`NmlUsers`)**
+
+Cette table contient les informations normalisées sur les utilisateurs du système, en tenant compte des variations possibles de leur genre et genre musical préféré au fil du temps. Le champ `updated_at` est indexé pour permettre de prendre en compte les valeurs de ces attributs au moment de la session.
+
+| **Champ**                |**Indexé**| **Description**                                          |
+|--------------------------|--|----------------------------------------------------------|
+| `user_id`                |Oui| Identifiant unique de l'utilisateur.                     |
+| `user_updated_at`        |Oui| Date et heure de la dernière mise à jour de l'utilisateur.|
+| `user_gender`            |Non| Genre de l'utilisateur.                                 |
+| `user_favorite_genre`    |Non| Genre musical préféré de l'utilisateur.                  |
+
+---
+
+### **2. Table des Titres (`NmlTracks`)**
+
+Cette table contient les informations normalisées sur les titres musicaux.
+
+| **Champ**                |**Indexé**| **Description**                                          |
+|--------------------------|--|----------------------------------------------------------|
+| `track_id`               |Oui| Identifiant unique du titre.                             |
+| `track_duration`         |Non| Durée du titre en secondes.                              |
+| `track_genre`            |Non| Genre musical du titre.                                  |
+| `track_artist`           |Non| Artiste du titre.                                        |
+
+---
+
+### **3. Table des Titres par Session (`NmlSessionTracks`)**
+
+Cette table fait le lien entre les sessions utilisateur et les titres joués au cours de ces sessions. Les trois premières clés combinées forment un identifiant unique pour chaque lecture de titre.
+
+| **Champ**                |**Indexé**| **Description**                                          |
+|--------------------------|--|----------------------------------------------------------|
+| `session_created_at`     |Oui| Date et heure de la création de la session.              |
+| `session_user_id`        |Oui| Identifiant de l'utilisateur ayant lancé la session.     |
+| `session_tracks_idx`     |Oui| Indice du titre joué dans la session.                    |
+| `track_id`               |Non| Identifiant du titre joué dans la session.               |
+
+---
+
+### **4. Table des Sessions (`NmlSessions`)**
+
+Cette table contient des informations sur les sessions des utilisateurs. Les deux premières clés combinées forment un identifiant unique pour chaque session.
+
+| **Champ**                |**Indexé**| **Description**                                          |
+|--------------------------|--|----------------------------------------------------------|
+| `session_created_at`     |Oui| Date et heure de la création de la session.              |
+| `session_user_id`        |Oui| Identifiant de l'utilisateur associé à la session.       |
+| `session_tracks_len`     |Non| Nombre de titres joués pendant la session.               |
+
+## 🗄️ Choisir la Base de Données Idéale
+
+Pour le système **MooVitamixFlux**, il est important de choisir une base de données qui non seulement soutient l'intégrité des données normalisées, mais aussi qui peut gérer efficacement des transactions à grande échelle tout en permettant des recherches rapides et des mises à jour fréquentes. 
+
+Étant donné la nature du projet, qui implique des données liées aux utilisateurs, aux titres musicaux et aux sessions, une base de données relationnelle est recommandée. Nous vous suggérons :
+
+**PostgreSQL** : C'est une base de données relationnelle très robuste et performante, particulièrement bien adaptée aux applications avec des exigences complexes de relations entre les entités. Elle prend en charge les index sur plusieurs colonnes, ce qui améliore la vitesse des recherches.
+
+### Étape 5
+
+# 🔍 Surveillance de la Santé du Pipeline de Données
+
+Dans **MooVitamixFlux**, nous mettons en place une surveillance simple mais efficace pour suivre la santé du pipeline de données, en particulier en ce qui concerne le traitement des données et la gestion des erreurs.
+
+## 📊 Suivi de l'État du Pipeline
+
+### 1. **États de Traitement des Données**
+Les états montrent en temps réel combien de données ont été traitées par le pipeline. Ces informations incluent des métriques sur le nombre de sessions, d’utilisateurs et de titres traités, permettant de suivre l'avancement des opérations.
+
+### 2. **Logs Client**
+Les logs capturent toute erreur ou événement important, indiquant les moments où quelque chose ne fonctionne pas comme prévu. Cela permet une détection rapide des problèmes et une réponse rapide.
+
+### 3. **Endpoint de Santé**
+Un endpoint éventuel de santé (par exemple, `/health`) fourni une interface simple pour vérifier l'état global du système. Il permet au client de voir facilement si tout fonctionne correctement.
+
+### 4. **Alertes et Notifications par E-mail**
+Lorsque des erreurs ou des problèmes critiques sont détectés dans le pipeline, des notifications par e-mail peuvent être automatiquement envoyées à l'utilisateur. Cela est particulièrement utile lorsque les appels de mise à jour sont automatisés, garantissant que l'équipe est informée de tout problème sans délai.
+
+### Étape 6
+
+# 📈 Automatisation du Calcul des Recommandations
+
+Dans **MooVitamixFlux**, l'automatisation du calcul des recommandations repose entre autre sur l'attribution d'un score d'engagement à chaque titre joué dans une session utilisateur. Ce score est influencé par la position du titre dans la session.
+
+## 🧑‍💻 Calcul du Score d'Engagement
+
+### 1. **Logique du Score d'Engagement**
+Les titres joués au début d'une session ont un score plus élevé car l'utilisateur a écouté plus de morceaux, ce qui signifie un engagement plus fort. Les titres joués plus tard dans la session reçoivent un score négatif, car l'utilisateur a arrêté l'écoute après ces titres. Le nombre de titres dans la session influence directement ce calcul, avec des sessions longues attribuant de meilleurs scores aux premiers titres.
+
+### 2. **Sessions de Formation**
+
+Les sessions d'écoute sont découpées en segments de longueur *n*, où *n* correspond au nombre de pistes dans une session. Lorsqu'un utilisateur effectue une requête pour obtenir une recommandation, la longueur actuelle de sa session est utilisée pour déterminer la valeur de *n*, en ajoutant 1. Par exemple, si la session en cours contient 2 pistes, alors *n = 3*, et le modèle correspondant à *n = 3* est utilisé.
+
+#### Données d'entraînement
+Pour entraîner ces modèles, les données d'entraînement sont générées à partir de :  
+- **Toutes les sessions passées de longueur *n*** : en utilisant toutes les pistes de la session pour une entrée de l'entraînement.  
+- **Toutes les sessions passées de longueur supérieure à *n*** : en créant plusieurs segments de longueur *n* à partir de ces sessions (par exemple, les plages 1 à 3 et 2 à 4 dans une session de longueur 4).  
+
+
+## 🌍 Analyse des Scores Globaux
+
+### 1. **Scores Globaux**
+Les scores globaux permettent d'analyser les tendances à travers des paramètres comme le genre populaire en fonction de l'heure de la journée, du sexe de l'utilisateur, ou de la période de l'année. Ces scores sont calculés à partir des sessions complètes et permettent de dégager des informations précieuses sur les préférences des utilisateurs.
+
+### 2. **Analyse des Fluctuations**
+Il est possible que des fluctuations se produisent au sein d'une même session, car l'engagement de l'utilisateur peut varier au fil du temps. Une "énergie infinie" n'est pas réaliste, et il est important de prévoir une sortie graduelle de l'utilisateur. Cela peut se traduire par une pause ou une fin de session bien placée, ce qui non seulement optimise l'expérience utilisateur, mais augmente aussi les chances de son retour pour de futures sessions.
+
+
+### Étape 7
+
+## 🔄 Réentrainement du modèle de recommandation
+
+Le réentrainement du modèle de recommandation se fait en deux étapes : **historical mining** et **scenario sculpting**.
+Voir Figure 1.
+
+### 1. **Historical Mining**
+- **Élagage des données invalides, suspectes et fausses** pour obtenir des données authentiques mais biaisées.
+- **Dosage des données** pour créer un échantillon équilibré et représentatif.
+
+### 2. **Scenario Sculpting**
+- **Identification des scénarios cibles via les scores d'engagement :** À partir des requêtes des utilisateurs, les scénarios sont identifiés en fonction des scores d'engagement obtenus pour chaque combinaison de données. Cela permet de déterminer les prédictions les plus pertinentes en fonction du comportement de l'utilisateur.
+- **Scorage pour prédiction :** Évaluation des scénarios pour ajuster les recommandations du modèle, en fonction des tendances d'engagement observées.
+
+
+### 3. **AB Testing et Sélection des Meilleurs Scénarios**
+Les prédictions sont testées par AB testing pour mesurer l'engagement. Ce processus génère de nouveaux lots de données, chacun avec un biais distinct à compenser.
+
+- **Batches gagnants :** Les lots les plus performants (meilleur engagement) sont dupliqués.
+- **Batches perdants :** Les lots sous-performants sont éliminés.
+
+Ce processus se transforme en un **tournoi éternel de lots**, où les scénarios sont constamment testés, affinés, et sélectionnés pour créer un modèle évolutif qui privilégie les résultats les plus favorables à l'engagement utilisateur.
+
+Figure 1: Aperçu du chemin des données
+[![Image Preview](moovitamixlearn_thumb.png)](moovitamixlearn.jpg)
+
