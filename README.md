@@ -207,5 +207,5 @@ Les prédictions sont testées par AB testing pour mesurer l'engagement. Ce proc
 Ce processus se transforme en un **tournoi éternel de lots**, où les scénarios sont constamment testés, affinés, et sélectionnés pour créer un modèle évolutif qui privilégie les résultats les plus favorables à l'engagement utilisateur.
 
 Figure 1: Aperçu du chemin des données
-[![Image Preview](moovitamixlearn_thumb.png)](moovitamixlearn.jpg)
+[![Image Preview](docs/moovitamixlearn_thumb.png)](docs/moovitamixlearn.jpg)
 
