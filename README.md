@@ -22,7 +22,7 @@ Nous sommes ravis de vous livrer **MooVitamixFlux**—votre solution personnalis
 
 2. **Clonez le dépôt**  
    ~~~bash  
-   git clone https://github.com/moovai/technical-test-data-engineer.git
+   git clone https://github.com/hutchisonkim/moovai-technical-test-data-engineer
    ~~~  
 
 3. **Construisez l'image Docker**  
