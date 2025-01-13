@@ -1,6 +1,4 @@
-# Réponses du test
-
-## _Utilisation de la solution (étape 1 à 3)_
+## Étapes 1 à 3
 
 # Bienvenue dans MooVitamixFlux 🚀
 
@@ -73,9 +71,6 @@ Une fois l'application lancée, vous pouvez interagir avec les points de termina
 
    Exemple :  
    `GET /get_logs?start_datetime=2025-01-01 00:00:00&end_datetime=2025-01-08 00:00:00`  
-
-
-## Questions (étapes 4 à 7)
 
 ### Étape 4
 

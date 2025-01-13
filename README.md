@@ -1,7 +1,3 @@
-# Réponses du test
-
-## _Utilisation de la solution (étape 1 à 3)_
-
 # Bienvenue dans MooVitamixFlux 🚀
 
 Nous sommes ravis de vous livrer **MooVitamixFlux**—votre solution personnalisée de synchronisation des données pour le système de recommandation musicale MooVitamix. Ce dépôt contient tout ce dont vous avez besoin pour commencer et maintenir votre projet facilement.
@@ -75,9 +71,7 @@ Une fois l'application lancée, vous pouvez interagir avec les points de termina
    `GET /get_logs?start_datetime=2025-01-01 00:00:00&end_datetime=2025-01-08 00:00:00`  
 
 
-## Questions (étapes 4 à 7)
-
-### Étape 4
+# En Savoir Plus
 
 ## 📊 Schéma des données normalisées
 
@@ -142,7 +136,6 @@ Pour le système **MooVitamixFlux**, il est important de choisir une base de don
 
 **PostgreSQL** : C'est une base de données relationnelle très robuste et performante, particulièrement bien adaptée aux applications avec des exigences complexes de relations entre les entités. Elle prend en charge les index sur plusieurs colonnes, ce qui améliore la vitesse des recherches.
 
-### Étape 5
 
 # 🔍 Surveillance de la Santé du Pipeline de Données
 
@@ -162,7 +155,6 @@ Un endpoint éventuel de santé (par exemple, `/health`) fourni une interface si
 ### 4. **Alertes et Notifications par E-mail**
 Lorsque des erreurs ou des problèmes critiques sont détectés dans le pipeline, des notifications par e-mail peuvent être automatiquement envoyées à l'utilisateur. Cela est particulièrement utile lorsque les appels de mise à jour sont automatisés, garantissant que l'équipe est informée de tout problème sans délai.
 
-### Étape 6
 
 # 📈 Automatisation du Calcul des Recommandations
 
@@ -191,8 +183,6 @@ Les scores globaux permettent d'analyser les tendances à travers des paramètre
 ### 2. **Analyse des Fluctuations**
 Il est possible que des fluctuations se produisent au sein d'une même session, car l'engagement de l'utilisateur peut varier au fil du temps. Une "énergie infinie" n'est pas réaliste, et il est important de prévoir une sortie graduelle de l'utilisateur. Cela peut se traduire par une pause ou une fin de session bien placée, ce qui non seulement optimise l'expérience utilisateur, mais augmente aussi les chances de son retour pour de futures sessions.
 
-
-### Étape 7
 
 ## 🔄 Réentrainement du modèle de recommandation
 
