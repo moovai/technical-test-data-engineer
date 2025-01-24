@@ -36,5 +36,7 @@ jobs:
           done
 
       - name: Run pipeline
-        run: python src/pipeline_etl/pipeline.py
+        run: |    
+          cd ../pipeline_etl
+          python pipeline.py
         
