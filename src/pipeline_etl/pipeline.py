@@ -9,7 +9,7 @@ from utils import fetch_all_pages, transform_tracks, transform_users, transform_
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-BASE_URL = "http://127.0.0.1"
+BASE_URL = "http://0.0.0.0"
 PORT = 8000
 ENDPOINTS = {
     "tracks": "/tracks",

@@ -11,14 +11,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.12
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name : Start FastAPI 
+        run: python -m uvicorn src/moovitamix_fastapi/main:app --reload --host 0.0.0.0 --port 8000
+
+      - name: Wait for FastAPI to be ready
+        run: |
+          while ! curl -s http://0.0.0.0:8000/docs; do
+            echo "Waiting to be ready..."
+            sleep 5
+          done
+
       - name: Run pipeline
         run: python src/pipeline_etl/pipeline.py
         
