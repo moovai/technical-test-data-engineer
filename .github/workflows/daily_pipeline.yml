@@ -23,7 +23,10 @@ jobs:
           pip install -r requirements.txt
 
       - name : Start FastAPI 
-        run: python -m uvicorn src/moovitamix_fastapi/main:app --reload --host 0.0.0.0 --port 8000
+        run: |
+          cd src/moovitamix_fastapi
+          python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000 &
+          echo "FastAPI is ready"
 
       - name: Wait for FastAPI to be ready
         run: |

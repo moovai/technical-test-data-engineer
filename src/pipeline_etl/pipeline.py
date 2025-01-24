@@ -84,5 +84,5 @@ class PipelineETL:
         logger.info("Pipeline completed")
 
 if __name__ == "__main__":
-    pipeline = PipelineETL(BASE_URL, 8001, ENDPOINTS)
+    pipeline = PipelineETL(BASE_URL, 8000, ENDPOINTS)
     pipeline.run()
