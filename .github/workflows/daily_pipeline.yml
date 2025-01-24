@@ -30,13 +30,13 @@ jobs:
 
       - name: Wait for FastAPI to be ready
         run: |
-          while ! curl -s http://0.0.0.0:8000/docs; do
+          while ! curl -s -o /dev/null http://0.0.0.0:8000/docs; do
             echo "Waiting to be ready..."
             sleep 5
           done
 
       - name: Run pipeline
         run: |    
-          cd ../pipeline_etl
+          cd src/pipeline_etl
           python pipeline.py
         
