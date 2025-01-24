@@ -49,7 +49,7 @@ class PipelineETL:
             return df
         except Exception as e:
             logger.error(f"Error transformation endpoint {endpoint}: {e}")
-            return pd.DataFrame()
+            raise e
 
     def load(self, endpoint:str, data:pd.DataFrame):
         if data.empty:
@@ -60,7 +60,7 @@ class PipelineETL:
             data.to_csv(f"{OUTPUT_DIR}/{endpoint}/{endpoint}_{timestamp}.csv", index=False)
         except Exception as e:
             logger.error(f"Error loading endpoint {endpoint}: {e}")
-
+            raise e
     def run(self):
         logger.info("Starting pipeline")
         if not self.endpoints:
@@ -80,6 +80,7 @@ class PipelineETL:
                 logger.info(f"Pipeline completed for endpoint {endpoint}")
             except Exception as e:
                 logger.error(f"Error running pipeline for endpoint {endpoint}: {e}")
+                raise e
         logger.info("Pipeline completed")
 
 if __name__ == "__main__":

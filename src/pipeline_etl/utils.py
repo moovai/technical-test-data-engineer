@@ -29,10 +29,10 @@ def fetch_all_pages(url:str, params:Dict[str, Any]) -> List[Dict[str, Any]]:
             params['page'] = page
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching {url} with params {params}: {e}")
-            break
+            raise e
         except Exception as e:
             logger.error(f"Error fetching {url} with params {params}: {e}")
-            break
+            raise e
     return data
 
 def transform_base(df:pd.DataFrame) -> pd.DataFrame:
