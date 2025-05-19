@@ -1,0 +1,4 @@
+faker
+fastapi
+uvicorn
+fastapi_pagination

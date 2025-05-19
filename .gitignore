@@ -9,6 +9,9 @@
 # Icon must end with two \r
 Icon
 
+# Data & archives
+archive/
+data/
 
 # Thumbnails
 ._*

@@ -1,5 +1,7 @@
 faker
 fastapi
 uvicorn
+requests
+pandas
 fastapi_pagination
 pytest
