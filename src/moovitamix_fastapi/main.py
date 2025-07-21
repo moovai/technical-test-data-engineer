@@ -5,9 +5,9 @@ from fastapi.responses import RedirectResponse
 from fastapi_pagination import Page, add_pagination, paginate
 from generate_fake_data import FakeDataGenerator
 
-Page = Page.with_custom_options(
-    size=Query(100, ge=1, le=100),
-)
+# Page = Page.with_custom_options(
+#     size=Query(100, ge=1, le=100),
+# )
 
 app = FastAPI(
     title="MooVitamix",
