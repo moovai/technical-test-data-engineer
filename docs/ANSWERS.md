@@ -31,6 +31,17 @@ Explications sur son fonctionnement:
 
 L'Orchestration et planification (main, @repeat) : Le décorateur @repeat(every(24).hours) indique que la fonction main sera exécutée toutes les 24 heures.
 
+Pour lancer le script il faudrait que le serveur web soit lancer. Déplacez-vous dans le dossier src/moovitamix_fastapi puis exécuter la commande
+```
+uvicorn src.moovitamix_fastapi.main:app --reload
+```
+
+Puis dans un autre terminal déplacer vous dans le dossier src/pipeline  lancer la commande suivante
+```
+python src/pipeline/fetch.py
+```
+
+
 ### 3. Tests unitaires
 Les tests couvrent les points suivants :
 
