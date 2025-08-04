@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    command: uvicorn src.moovitamix_fastapi.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - .:/app
+
+  etl:
+    build: .
+    container_name: etl_job
+    command: python etl/load.py
+    volumes:
+      - .:/app
+    depends_on:
+      - api
+
+  tests_extract:
+    build: .
+    container_name: etl_tests_extract
+    command: pytest -v etltests/test_extract.py
+    depends_on:
+      - api
+    volumes:
+      - .:/app
+
+  tests_transform:
+    build: .
+    container_name: etl_tests_transform
+    command: pytest -v etltests/test_transform.py
+    depends_on:
+      - api
+    volumes:
+      - .:/app
+
+  airflow:
+    image: apache/airflow:2.7.1
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__FERNET_KEY=YOUR_FERNET_KEY
+      - AIRFLOW__WEBSERVER__SECRET_KEY=YOUR_SECRET_KEY
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    ports:
+      - 8080:8080
+    command: webserver
+    depends_on:
+      - etl

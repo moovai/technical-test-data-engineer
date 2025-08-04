@@ -5,7 +5,7 @@ test and must not be modified.
 
 import random
 
-from classes_out import ListenHistoryOut, TracksOut, UsersOut
+from src.moovitamix_fastapi.classes_out import ListenHistoryOut, TracksOut, UsersOut
 
 
 class FakeDataGenerator:
