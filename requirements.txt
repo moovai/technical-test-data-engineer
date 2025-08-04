@@ -3,3 +3,5 @@ fastapi
 uvicorn
 fastapi_pagination
 pytest
+requests
+pandas
