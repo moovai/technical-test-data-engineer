@@ -4,10 +4,15 @@ from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import RedirectResponse
 from fastapi_pagination import Page, add_pagination, paginate
 from generate_fake_data import FakeDataGenerator
+from typing import TypeVar
+from fastapi_pagination.customization import CustomizedPage, UseParamsFields
 
-Page = Page.with_custom_options(
-    size=Query(100, ge=1, le=100),
-)
+T = TypeVar("T")
+
+CustomPage = CustomizedPage[
+    Page[T],
+    UseParamsFields(size=Query(100, ge=1, le=100)),
+]
 
 app = FastAPI(
     title="MooVitamix",
@@ -37,17 +42,17 @@ tracks, users, listen_history = generator.generate_fake_data()
 
 
 @app.get("/tracks", tags=["HTTP methods"])
-async def get_tracks() -> Page[TracksOut]:
+async def get_tracks() -> CustomPage[TracksOut]:
     return paginate(tracks)
 
 
 @app.get("/users", tags=["HTTP methods"])
-async def get_users() -> Page[UsersOut]:
+async def get_users() -> CustomPage[UsersOut]:
     return paginate(users)
 
 
 @app.get("/listen_history", tags=["HTTP methods"])
-async def get_listen_history() -> Page[ListenHistoryOut]:
+async def get_listen_history() -> CustomPage[ListenHistoryOut]:
     return paginate(listen_history)
 
 
