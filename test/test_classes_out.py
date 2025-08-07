@@ -1,5 +1,5 @@
 import datetime
-from src.moovitamix_fastapi.classes_out import TracksOut, UsersOut, ListenHistoryOut, gender_list, genre_list
+from moovitamix_fastapi.classes_out import TracksOut, UsersOut, ListenHistoryOut, gender_list, genre_list
 
 # Testing TracksOut
 def test_tracks_out_generate_fake():

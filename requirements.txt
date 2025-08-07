@@ -1,5 +1,12 @@
+pytest-vscodedebug
+# Core dependencies for data pipeline
+requests>=2.31.0
+pandas>=2.0.0
+pytest>=7.0.0
+fastapi==0.104.1
+uvicorn>=0.22.0
+fastapi-pagination==0.12.14
+pydantic==2.5.0
 faker
-fastapi
-uvicorn
-fastapi_pagination
-pytest
+schedule==1.1.0
+python-dotenv==1.0.0
