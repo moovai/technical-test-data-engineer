@@ -1,13 +1,17 @@
 from classes_out import ListenHistoryOut, TracksOut, UsersOut
+from typing import TypeVar
 from fastapi import FastAPI, Query
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import RedirectResponse
 from fastapi_pagination import Page, add_pagination, paginate
+from fastapi_pagination.customization import CustomizedPage, UseParamsFields
 from generate_fake_data import FakeDataGenerator
 
-Page = Page.with_custom_options(
-    size=Query(100, ge=1, le=100),
-)
+T = TypeVar("T")
+Page = CustomizedPage[
+    Page[T],
+    UseParamsFields(size=Query(100, ge=1, le=100)),
+]
 
 app = FastAPI(
     title="MooVitamix",
