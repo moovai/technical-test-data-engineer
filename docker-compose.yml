@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  airflow:
+    image: apache/airflow:2.9.2
+    container_name: moovitamix_airflow
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      AIRFLOW__WEBSERVER__AUTH_MANAGER: airflow.www.security.NoAuthManager  # no login screen
+      PYTHONPATH: /opt/airflow/repo
+      BASE_URL: "http://host.docker.internal:8000"  
+    volumes:
+      - ./orchestrator/dags:/opt/airflow/dags
+      - ./orchestrator/airflow_home/webserver_config.py:/opt/airflow/webserver_config.py
+      - ./data_ingestion:/opt/airflow/repo/data_ingestion
+      - ./data_store:/opt/airflow/repo/data_store
+      - ./orchestrator/requirements-airflow.txt:/requirements-airflow.txt
+    ports:
+      - "8080:8080"
+    command: >
+      bash -eu -c "
+        pip install --no-cache-dir -r /requirements-airflow.txt &&
+        airflow standalone
+      "

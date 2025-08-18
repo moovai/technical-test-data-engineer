@@ -1,0 +1,41 @@
+name: tests
+
+on:
+  push:
+    branches: [ "**" ]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # If you have dev deps in requirements-dev.txt, install that; else just requirements.txt
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # Install your package in editable mode if you use src/ layout (optional but nice)
+          if [ -f pyproject.toml ] || [ -f setup.cfg ] || [ -f setup.py ]; then pip install -e .; fi
+          # Always install pytest (in case it’s not in the reqs)
+          pip install pytest
+
+      - name: Run tests
+        env:
+          # Make sure tests never hit your real API
+          BASE_URL: "http://testserver"
+        run: |
+          pytest -q
