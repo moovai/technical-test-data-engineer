@@ -2,7 +2,7 @@
 
 ## _Utilisation de la solution (étape 1 à 3)_
 
-# Moovitamix - Ingestion de Données
+### Moovitamix - Ingestion de Données
 
 Ce projet fournit :
 - une **API FastAPI** qui génère des données factices (tracks, users, listen_history),
@@ -12,7 +12,7 @@ Ce projet fournit :
 
 ---
 
-## 1. Installation
+### 1. Installation
 
 Créez et activez un environnement virtuel, puis installez les dépendances listées dans `requirements.txt`.
 
@@ -25,7 +25,7 @@ source .venv/bin/activate   # Sur Windows : .venv\Scripts\activate
 pip install -r requirements.txt
 
 ```
-## 2. Lancer le serveur FastAPI
+### 2. Lancer le serveur FastAPI
 
 Déplacez-vous dans le dossier de l’application FastAPI et démarrez le serveur :
 
@@ -36,7 +36,7 @@ python -m uvicorn main:app
 Le serveur sera disponible à l’adresse : http://127.0.0.1:8000
 Documentation Swagger UI : http://127.0.0.1:8000/docs
 
-## 3. Orchestration avec Airflow (Docker)
+### 3. Orchestration avec Airflow (Docker)
 
 Prérequis
 
@@ -81,7 +81,7 @@ watermark.json (pour mémoriser le updated_at max par table)
 
 Important (réseau Docker) : dans docker-compose.yml, l’ingestion utilise BASE_URL=http://host.docker.internal:8000 pour atteindre l’API qui tourne sur ta machine. Si tu changes de port ou d’hôte, adapte cette variable d’environnement.
 
-## 4. Tests untaires (Pytest)
+### 4. Tests untaires (Pytest)
 
 ```bash
 pytest -q
@@ -93,7 +93,7 @@ Les tests couvrent :
 - l’ingestion incrémentale (filtre via watermark + mise à jour du watermark),
 - l’upsert local (pas de doublons, remplacement seulement si updated_at plus récent).
 
-## 6. Structure (résumé)
+### 6. Structure (résumé)
 
 ```bash
 .
@@ -224,7 +224,7 @@ Pour passer à l’échelle, je recommande un data warehouse distribué comme Sn
 
 ### Étape 5
 
-## Suivi de la santé du pipeline de données
+### Suivi de la santé du pipeline de données
 
 Pour garantir la fiabilité des données ingérées quotidiennement, je mettrais en place un **système de monitoring du pipeline**, basé sur les points suivants :
 
@@ -254,7 +254,7 @@ Pour garantir la fiabilité des données ingérées quotidiennement, je mettrais
 
 ### Étape 6
 
-## Automatisation du calcul des recommandations
+### Automatisation du calcul des recommandations
 
 ### Étapes principales
 1. **Ingestion quotidienne** : récupérer les données (users, tracks, historique) via l’API et les stocker.  
