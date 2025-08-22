@@ -1,0 +1,4 @@
+- [ ] méthode Page.with_custom_options a été supprimée en v0.13 j'ai rétrogadé la lib et j'ai maj requirements.txt pip install "fastapi-pagination<0.13"
+- [ ] lancement API : python -m uvicorn main:app
+- [ ] lancement pipeline = python -m pipeline.main
+- [ ] lancement des tests = PYTHONPATH=. pytest -q
