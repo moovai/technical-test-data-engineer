@@ -42,35 +42,63 @@ Pytest doit rapporter que tous les tests passent.
 Pour stocker les données des trois sources, je propose une base relationnelle avec trois tables principales et une table de jonction normalisée :
 --------
 1.	Table tracks : stocke les métadonnées des chansons.
+
 colonne	- type	- description
+
 id (PK)	- integer	- identifiant unique de la chanson
+
 name	- text	- nom de la chanson
+
 artist	- text	- interprète principal
+
 songwriters	- text	- auteurs/compositeurs
+
 duration	- interval/time	- durée de la piste (ou nombre de secondes)
+
 genres	- text	- genres principaux (concaténés ou en JSON)
+
 album	- text	- album d’origine
+
 created_at	- timestamp	- date de création de l’enregistrement
+
 updated_at	- timestamp	- date de dernière mise à jour
+
 ---------
 2.	Table users : informations sur les utilisateurs.
+
 colonne	- type	- description
+
 id (PK)	- integer	- identifiant unique de l’utilisateur
+
 first_name	- text	- prénom
+
 last_name	- text	- nom
+
 email	- text	- adresse électronique unique
+
 gender	- text	- genre (liste contrôlée)
+
 favorite_genres	- text	- genres favoris (concaténés ou tableau JSON)
+
 created_at	- timestamp	- date de création du compte
+
 updated_at	- timestamp	- date de dernière mise à jour
+
 ---------
 3.	Table listen_history : journal des écoutes individuelles, à granularité fine.
+
 colonne	- type	- description
+
 id (PK)	- serial	- identifiant interne de la ligne
+
 user_id	- integer	- clé étrangère vers users.id
+
 track_id	- integer	- clé étrangère vers tracks.id
+
 played_at	- timestamp	- date/heure de l’écoute (issue de created_at de l’API)
+
 updated_at	- timestamp	- date/heure de mise à jour (issue de updated_at de l’API)
+
 ---------
 Les objets ListenHistoryOut retournés par l’API contiennent un champ items avec une liste d’IDs de chansons. Dans le schéma proposé, chaque ID est éclaté en une ligne distincte de listen_history afin de normaliser la relation « utilisateur ↔ piste ». Ce format facilite le calcul de matrices utilisateur/piste et l’application d’algorithmes de filtrage collaboratif. Pour les environnements de développement et de test, une base SQLite peut suffire. En production, je recommande PostgreSQL.
 
