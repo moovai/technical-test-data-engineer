@@ -34,7 +34,7 @@ Cela téléchargera toutes les pages des trois endpoints et créera trois fichie
 Des tests unitaires sont fournis dans test/test_data_pipeline.py. Ils vérifient le comportement du pipeline sans nécessiter de serveur HTTP en utilisant des mocks. Depuis la racine du projet, exécutez :
 
     pytest
-    
+
 Pytest doit rapporter que tous les tests passent.
 ## Questions (étapes 4 à 7)
 
