@@ -5,24 +5,36 @@
 ### 1- Préparer l'environnement Python
 1.	Cloner le dépôt : après avoir forké le dépôt, clonez‑le sur votre machine locale.
 2.	Créer un environnement virtuel compatible avec Python ≥ 3.9 et < 3.13. Par exemple :
+
     python3 -m venv .venv
+
     source .venv/bin/activate
+
 3.	Installer les dépendances : un fichier requirements.txt est fourni. Exécutez :
+
     pip install -r requirements.txt
+
 Cela installera notamment fastapi, uvicorn, requests, pydantic, faker et pytest.
 ### 2- Lancer l'API de test
 L'application FastAPI servant les données se trouve dans src/moovitamix_fastapi. Pour la démarrer en local :
+
     cd src/moovitamix_fastapi
+
     python -m uvicorn main:app --reload
+
 L'application se lance sur http://127.0.0.1:8000 et expose trois endpoints (/tracks, /users et /listen_history) paginés. Une fois le serveur démarré, la documentation interactive est accessible à http://127.0.0.1:8000/docs.
 ### 3- Exécuter le pipeline de récupération
 Le script Python src/data_pipeline.py fournit un pipeline simple qui interroge chaque endpoint paginé et enregistre les données dans des fichiers JSONL datés. Par défaut il s’attend à ce que l’API soit disponible sur http://localhost:8000 et stocke les données dans un dossier output. Vous pouvez lancer une ingestion manuelle ainsi :
+
     python -m src.data_pipeline --base-url http://127.0.0.1:8000 --output-dir output
+
 Cela téléchargera toutes les pages des trois endpoints et créera trois fichiers (par exemple : tracks_20250906.jsonl, users_20250906.jsonl et listen_history_20250906.jsonl) dans le répertoire output. 
 
 ### 4- Lancer les tests unitaires
 Des tests unitaires sont fournis dans test/test_data_pipeline.py. Ils vérifient le comportement du pipeline sans nécessiter de serveur HTTP en utilisant des mocks. Depuis la racine du projet, exécutez :
+
     pytest
+    
 Pytest doit rapporter que tous les tests passent.
 ## Questions (étapes 4 à 7)
 
